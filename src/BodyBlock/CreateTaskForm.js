@@ -3,7 +3,7 @@ import React from 'react';
 class CreateTaskForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {options: true, task: '', name: '', description: '', comment: '', date: new Date()};
+        this.state = {task: '', name: '', description: '', comment: '', date: new Date()};
 
         this.onSubmitForm = this.onSubmitForm.bind(this);
         this.onOptionsSuccess = this.onOptionsSuccess.bind(this);
@@ -12,6 +12,7 @@ class CreateTaskForm extends React.Component {
         this.onDescriptionChange = this.onDescriptionChange.bind(this);
         this.onCommentChange = this.onCommentChange.bind(this);
         this.onDateChange = this.onDateChange.bind(this);
+        this.changeForm = this.changeForm.bind(this);
     }
 
     onSubmitForm(e) {
@@ -51,6 +52,10 @@ class CreateTaskForm extends React.Component {
        this.props.hideForm();
     }
 
+    changeForm() {
+        this.props.onChangeForm();
+    }
+
     render() {
         let options = null;
         let date = this.props.dataForForm.date;
@@ -59,7 +64,7 @@ class CreateTaskForm extends React.Component {
             date = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2)
 
         }
-        if (this.state.options) {
+        if (this.props.options) {
             options = <div className="product col-sm-7 col-md-7 col-lg-7">
                 <div>
                     <label for="description">
@@ -112,6 +117,7 @@ class CreateTaskForm extends React.Component {
                     <div className="product col-sm-7 col-md-7 col-lg-7">
                         <input type="submit" value="Добавить задачу"/>
                         <input onClick={this.onHideForm} type="reset" value="Отменить"/>
+                        <input onClick={this.changeForm} type="reset" value="Настройки"/>
                     </div>
                 </div>
             </form>
@@ -122,6 +128,7 @@ class CreateTaskForm extends React.Component {
 CreateTaskForm.defaultProps = {
     onSubmit: () => {},
     hideForm: () => {},
+    onChangeForm: () => {},
 };
 
 export default CreateTaskForm;

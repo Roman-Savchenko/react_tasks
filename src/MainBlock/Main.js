@@ -33,12 +33,14 @@ class Main extends React.Component {
             listName: '',
             listExecutedTask: [],
             listNewTask: [],
-            updateTask: {comment: '', date: '', description: '', name: '', hash: ''}
+            updateTask: {comment: '', date: '', description: '', name: '', hash: ''},
+            options: false,
         };
         this.renderForm = this.renderForm.bind(this);
         this.onAddTask = this.onAddTask.bind(this);
         this.onRenderList = this.onRenderList.bind(this);
         this.pushHideForm = this.pushHideForm.bind(this);
+        this.changeForm = this.changeForm.bind(this);
     }
 
     componentDidMount() {
@@ -69,6 +71,7 @@ class Main extends React.Component {
     onRenderList = (value) => {
         this.setState({showList: true});
         this.setState({listName: value});
+        this.setState({showForm: false});
 
     };
 
@@ -191,6 +194,11 @@ class Main extends React.Component {
 
     pushHideForm() {
        this.setState({showForm: false});
+        this.setState({options: false});
+    }
+
+    changeForm() {
+        this.setState({options: true});
     }
 
     render() {
@@ -218,7 +226,9 @@ class Main extends React.Component {
             create = <CreateTaskForm
                 onSubmit={this.onAddTask}
                 dataForForm = {this.state.updateTask}
-                hideForm = {this.pushHideForm}/>
+                hideForm = {this.pushHideForm}
+                options={this.state.options}
+                onChangeForm={this.changeForm}/>
         }
         let button = null;
         if (this.state.listName === 'all' || this.state.listName === '') {

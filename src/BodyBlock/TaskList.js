@@ -45,7 +45,7 @@ class TaskList extends React.Component {
                            onClick={this.onDelete}
                            type="radio" id={task.hash}
                            name="contact"
-                           value={task.hash}></input>
+                           value={task.hash}/>
                     <a onClick={this.updateTaskData} className={task.hash}> {task.name}</a>
                 </div>;
             })}
