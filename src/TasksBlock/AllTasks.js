@@ -11,7 +11,7 @@ class AllTasks extends React.Component
         return   <div className="row">
             <div className="col-sm-12 col-md-12 col-lg-12">
                 <div className="well">
-                    <label for="count-list">
+                    <label htmlFor="count-list">
                         <a id="count-list" className="cursor-pointer" onClick={this.taskTransferTaskList}>
                             Текущие задачи <span>{countList}</span>
                         </a>

@@ -11,7 +11,7 @@ class Overdue extends React.Component
         return  <div className="row">
                  <div className="col-sm-12 col-md-12 col-lg-12">
                      <div className="well">
-                         <label for="overdue">
+                         <label htmlFor="overdue">
                              <a id="overdue" className="cursor-pointer" onClick={this.taskTransferTaskList}>
                                  Просроченные задачи <span>{countList}</span>
                              </a>

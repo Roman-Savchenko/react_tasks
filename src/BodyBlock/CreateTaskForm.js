@@ -67,7 +67,7 @@ class CreateTaskForm extends React.Component {
         if (this.props.options) {
             options = <div className="product col-sm-7 col-md-7 col-lg-7">
                 <div>
-                    <label for="description">
+                    <label htmlFor="description">
                         <input id="description" className="input-create-task-form" type="text" name="description"
                                defaultValue={this.props.dataForForm.description}
                                placeholder="description"
@@ -104,7 +104,8 @@ class CreateTaskForm extends React.Component {
                             <input className="input-create-task-form" type="text" name="name"
                                    defaultValue={this.props.dataForForm.name}
                                    placeholder="task name"
-                                   onChange={this.onNameChange}/>
+                                   onChange={this.onNameChange}
+                                   required/>
                         </label>
                     </div>
                     <div>
@@ -115,7 +116,7 @@ class CreateTaskForm extends React.Component {
                 </div>
                 <div className="row">
                     <div className="product col-sm-7 col-md-7 col-lg-7">
-                        <input type="submit" value="Добавить задачу"/>
+                        <input type="submit" className="btn btn-primary" value="Добавить задачу"/>
                         <input onClick={this.onHideForm} type="reset" value="Отменить"/>
                         <input onClick={this.changeForm} type="reset" value="Настройки"/>
                     </div>

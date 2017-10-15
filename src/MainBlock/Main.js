@@ -241,7 +241,7 @@ class Main extends React.Component {
                 <AllTasks countCurrentTask={this.state.countCurrentTask} renderList={this.onRenderList}/>
                 <Overdue countOverdueTask={this.state.countOverdueTask} renderList={this.onRenderList}/>
                 <Executed countCompleteTask={this.state.countCompleteTask} renderList={this.onRenderList}/>
-                <Canceled/>
+                <Canceled countCompleteTask={this.state.countCompleteTask} renderList={this.onRenderList}/>
             </div>
             <div id="sidebar" className="col-md-9 sidebar child">
                 {printNewCreateTask}

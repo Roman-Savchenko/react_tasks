@@ -43,7 +43,7 @@ class TaskList extends React.Component {
                 return <div key={task.hash} className="product col-sm-7 col-md-7 col-lg-7 ">
                     <input className="render-list"
                            onClick={this.onDelete}
-                           type="radio" id={task.hash}
+                           type="checkbox" id={task.hash}
                            name="contact"
                            value={task.hash}/>
                     <a onClick={this.updateTaskData} className={task.hash}> {task.name}</a>
