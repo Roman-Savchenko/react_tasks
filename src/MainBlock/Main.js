@@ -77,6 +77,7 @@ class Main extends React.Component {
 
     renderForm() {
         this.setState({showForm: true});
+        this.setState({updateTask: {name: '', comment: '', description: '', date: '', hash: ''}});
     }
 
     onAddTask(task) {
