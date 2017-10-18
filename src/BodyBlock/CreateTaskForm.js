@@ -3,7 +3,7 @@ import React from 'react';
 class CreateTaskForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {task: '', name: '', description: '', comment: '', date: new Date()};
+        this.state = {name: '', comment: '', description: '', date: new Date(), options: false};
 
         this.onSubmitForm = this.onSubmitForm.bind(this);
         this.onOptionsSuccess = this.onOptionsSuccess.bind(this);
@@ -15,14 +15,27 @@ class CreateTaskForm extends React.Component {
         this.changeForm = this.changeForm.bind(this);
     }
 
+    getTaskForUpdate() {
+        let hash = this.props.currentHash;
+        let list = this.props.listTasks;
+        let task = null;
+        for (let index in list) {
+            if (list[index].hash === hash) {
+                task = list[index];
+            }
+        }
+
+        return task;
+    }
+
     onSubmitForm(e) {
         e.preventDefault();
         let task = {
-            name: this.state.name !== '' ? this.state.name : this.props.dataForForm.name,
-            date: this.state.date !== '' ? new Date(this.state.date) : new Date(this.props.dataForForm.date),
-            description: this.state.description !== '' ? this.state.description : this.props.dataForForm.description,
-            comment: this.state.comment !== '' ? this.state.comment : this.props.dataForForm.comment,
-            hash: this.props.dataForForm.hash !== ''? this.props.dataForForm.hash : Math.floor(Math.random() * (1000 - 1 + 1)) + 1,
+            name: this.state.name !== '' ? this.state.name : this.getTaskForUpdate().name,
+            date: this.state.date !== new Date() ? this.state.date : new Date(this.getTaskForUpdate().date),
+            description:  this.state.description !== '' ? this.state.description : this.getTaskForUpdate().description ,
+            comment: this.state.comment !== '' ? this.state.comment : this.getTaskForUpdate().comment,
+            hash: this.props.currentHash !== ''? this.props.currentHash : Math.floor(Math.random() * (1000 - 1 + 1)) + 1,
             complete: 0
         };
         this.props.onSubmit(task);
@@ -53,23 +66,28 @@ class CreateTaskForm extends React.Component {
     }
 
     changeForm() {
-        this.props.onChangeForm();
+        this.setState({options:true});
     }
 
     render() {
         let options = null;
-        let date = this.props.dataForForm.date;
-        if (date !== '') {
-
+        let date = '';
+        if (this.getTaskForUpdate() !== null) {
+            date = new Date(this.getTaskForUpdate().date);
             date = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2)
-
         }
-        if (this.props.options) {
+        let name  = this.props.currentHash !== '' ? this.getTaskForUpdate().name : '';
+        let description = this.props.currentHash !== '' ? this.getTaskForUpdate().description : '';
+        let comment = this.props.currentHash !== '' ? this.getTaskForUpdate().comment : '';
+        let hash = this.props.currentHash !== ''? this.props.currentHash : Math.floor(Math.random() * (1000 - 1 + 1)) + 1;
+
+
+        if (this.state.options) {
             options = <div className="product col-sm-7 col-md-7 col-lg-7">
                 <div>
                     <label htmlFor="description">
                         <input id="description" className="input-create-task-form" type="text" name="description"
-                               defaultValue={this.props.dataForForm.description}
+                               defaultValue={description}
                                placeholder="description"
                                onChange={this.onDescriptionChange}/>
                     </label>
@@ -79,7 +97,7 @@ class CreateTaskForm extends React.Component {
                         <input
                             className="input-create-task-form"
                             type="text" name="comment"
-                            defaultValue={this.props.dataForForm.comment}
+                            defaultValue={comment}
                             placeholder="comment"
                             onChange={this.onCommentChange}/>
                     </label>
@@ -102,7 +120,7 @@ class CreateTaskForm extends React.Component {
                     <div className="product col-sm-7 col-md-7 col-lg-7">
                         <label>
                             <input className="input-create-task-form" type="text" name="name"
-                                   defaultValue={this.props.dataForForm.name}
+                                   defaultValue={name}
                                    placeholder="task name"
                                    onChange={this.onNameChange}
                                    required/>
@@ -110,7 +128,7 @@ class CreateTaskForm extends React.Component {
                     </div>
                     <div>
                         <input className="input-create-task-form" type="hidden" name="hash"
-                               value={this.props.dataForForm.hash}/>
+                               value={hash}/>
                     </div>
                     {options}
                 </div>

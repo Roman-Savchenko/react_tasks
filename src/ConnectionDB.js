@@ -26,6 +26,10 @@ export function addNewTasksOrUpdate(db, task){
 
 }
 
+export function getAllTasks(db) {
+    return db.allTasks.where('hash').notEqual(0);
+}
+
 export function modifyTask(db, hash){
     db.allTasks
         .where("hash").equals(parseInt(hash, 10))
@@ -36,39 +40,6 @@ export function modifyExecutedTask(db, hash){
     db.allTasks
         .where("hash").equals(parseInt(hash, 10))
         .modify((task) => {task.complete = 0});
-}
-
-export function getAllCurrentTask(db, date)
-{
-    return db.allTasks
-        .where("date")
-        .between(
-            new Date(date.setHours(0, 0, 0, 0)),
-            new Date(date.setHours(23, 0, 0, 0)))
-        .and(
-            function (value) {
-                        return value.complete === 0
-            }
-        );
-}
-
-export function getAllOverdueTask(db, date)
-{
-    return db.allTasks
-        .where("date")
-        .below(new Date(date.setHours(0, 0, 0, 0)))
-        .and(
-            function (value) {
-                return value.complete === 0
-            }
-        );
-}
-
-export function getAllCompleteTask(db)
-{
-    return db.allTasks
-        .where("complete")
-        .equals(1);
 }
 
 export default db;

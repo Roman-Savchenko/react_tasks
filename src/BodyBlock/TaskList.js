@@ -29,17 +29,16 @@ class TaskList extends React.Component {
             }
         }
         this.sendUpdateTask(task);
-
     }
 
     sendUpdateTask = (task) => {
-        this.props.updateTask(task);
+        this.props.updateTask(task.hash);
     };
 
 
     render() {
         return <div id="tasks-list">
-            {this.props.listCurrentTask.map(task => {
+            {this.props.listCurrentTask.map((task) => {
                 return <div key={task.hash} className="product col-sm-7 col-md-7 col-lg-7 ">
                     <input className="render-list"
                            onClick={this.onDelete}
